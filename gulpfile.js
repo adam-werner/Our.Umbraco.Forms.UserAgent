@@ -7,12 +7,20 @@ var config = require('./paths.json');
  * app_plugin and build script.
  */
 
-const appPluginPath = '/App_Plugins/' + config.pluginFolder;
+const appPluginPath = '/App_Plugins' + config.pluginFolder;
 
 const appPlugin = {
     source : config.library + appPluginPath + '/**/*',
     src : config.library + appPluginPath + '/',
     dest : config.site + appPluginPath
+}
+
+const viewPluginPath = '/Views' + config.viewFolder;
+
+const viewPlugin = {
+    source : config.library + viewPluginPath + '/**/*',
+    src : config.library + viewPluginPath + '/',
+    dest : config.site + viewPluginPath
 }
 
 
@@ -54,6 +62,17 @@ function watchAppPlugins() {
         .on('add', function (path, stats) {
             copy(path, appPlugin.src, appPlugin.dest)
         });
+
+        console.log('Watching : ' + viewPlugin.source);
+        console.log('Target   : ' + viewPlugin.dest);
+    
+        watch(viewPlugin.source, { ignoreInitial: false })
+            .on('change', function (path, stats) {
+                copy(path, viewPlugin.src, viewPlugin.dest)
+            })
+            .on('add', function (path, stats) {
+                copy(path, viewPlugin.src, viewPlugin.dest)
+            }); 
 }
 
 exports.default = function () {

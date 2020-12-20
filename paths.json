@@ -1,5 +1,6 @@
 {
   "library": "src/Our.Umbraco.Forms.UserAgent",
-  "pluginFolder": "Our.Umbraco.Forms.UserAgent",
+  "pluginFolder": "",
+  "viewFolder": "",
   "site": ".website"
 }
